@@ -1,116 +1,171 @@
-📁 Projeto: casa-inteligente
-Cole este conteúdo no arquivo README.md dentro da pasta casa-inteligente:
+# 💡 Casa Inteligente
 
-
-# 💡 Projeto Casa Inteligente
-
-Este projeto simula um sistema de automação residencial com controle via interface web, backend em Node.js e integração com um ESP32.
+Sistema de automação residencial com interface web, backend em Node.js e controle físico via ESP32. O usuário pode acionar dispositivos remotamente como lâmpadas, ventiladores ou qualquer outro equipamento conectado.
 
 ---
 
-## 📁 Estrutura
+## 📁 Estrutura do Projeto
 
 casa-inteligente/
-├── frontend/
-│ ├── index.html # Página principal com botões de controle
-│ ├── style.css # Estilo da página
-│ └── script.js # Lógica para interação com o backend
 ├── backend/
-│ └── server.js # Servidor Node.js que recebe os comandos e interage com o ESP32
-├── dispositivos/
-│ └── esp32/
-│ └── esp32-control.ino # Código Arduino para o ESP32
-
+│ └── server.js # Servidor Express que recebe comandos e comunica com o ESP32
+├── frontend/
+│ ├── index.html # Interface web com botões de controle
+│ ├── style.css # Estilização da página
+│ └── script.js # Lógica de envio de comandos
+└── dispositivos/
+└── esp32/
+└── esp32-control.ino # Código para ser carregado no ESP32
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
 - HTML, CSS e JavaScript (Frontend)
-- Node.js e Express (Backend)
-- ESP32 com Arduino (Microcontrolador)
+- Node.js + Express (Backend)
+- ESP32 (Arduino Framework)
 
 ---
 
-## ▶️ Como Executar
+## 🧰 Pré-requisitos
 
-### 1. Backend (Node.js)
-- Certifique-se de ter o Node.js instalado.
-- Navegue até a pasta `backend`:
-```bash
+- Node.js instalado
+- Arduino IDE instalada
+- Placa ESP32 conectada via USB
+- Navegador moderno (Chrome, Firefox, etc.)
+- Todas as pastas do projeto baixadas/clonadas
+
+---
+
+## ▶️ Passo a Passo
+
+### 1. Subir o código para o ESP32
+
+1. Conecte o ESP32 no seu computador.
+2. Abra o arquivo `dispositivos/esp32/esp32-control.ino` na Arduino IDE.
+3. Faça o upload para a placa.
+4. No código `.ino`, configure sua rede Wi-Fi (SSID e senha).
+
+---
+
+### 2. Executar o Backend (Node.js)
+
 cd backend
-npm install
-node server.js
-2. Frontend
-Basta abrir o arquivo frontend/index.html no navegador.
+npm install         # Instala as dependências
+node server.js      # Inicia o servidor
+O backend estará rodando por padrão em http://localhost:3000.
 
-3. ESP32
-Abra o arquivo esp32-control.ino na IDE do Arduino.
+3. Abrir o Frontend
+Abra o arquivo frontend/index.html no seu navegador.
+Você verá a interface com os botões de controle.
 
-Conecte seu ESP32 e faça o upload do código.
+⚠️ Observações Importantes
+O ESP32 e o servidor Node.js devem estar conectados à mesma rede Wi-Fi.
 
-⚠️ Observações
-O ESP32 precisa estar na mesma rede que o servidor Node.js para funcionar corretamente.
+O frontend se comunica com o backend via fetch.
 
-Você pode adaptar os comandos para controlar relés, LEDs, etc.
+O backend envia comandos HTTP para o ESP32 com base na ação feita no botão.
 
+🧠 Personalização
+Adicione mais botões no index.html e configure o envio no script.js.
 
----
-
-## 📁 Projeto: **casa-inteligente-tv**  
-**Cole este conteúdo no arquivo `README.md` dentro da pasta `casa-inteligente-tv`:**
-
-
-# 📺 Casa Inteligente - Controle da TV
-
-Este projeto permite controlar uma TV Samsung remotamente via interface web, utilizando Python e o protocolo de controle remoto da própria TV.
+No ESP32, você pode controlar relés, LEDs ou motores, conforme os pinos programados.
 
 ---
 
-## 📁 Estrutura
+## 📝 `README.md` — Projeto `casa-inteligente-tv`
+
+
+# 📺 Casa Inteligente - Controle da TV Samsung
+
+Projeto que permite controlar uma Smart TV Samsung remotamente usando uma interface web e Python. Ideal para integrar automação residencial com dispositivos já existentes na casa.
+
+---
+
+
+## 📁 Estrutura do Projeto
 
 casa-inteligente-tv/
-├── app.py # Servidor Flask responsável por lidar com comandos
-├── templates/
-│ └── index.html # Interface web com botões para controlar a TV
-├── samsung_config.json # Arquivo de configuração da TV Samsung
-└── requirements.txt # Dependências Python do projeto
-
+├── app.py # Servidor Flask que lida com os comandos enviados via navegador
+├── samsung_config.json # Configurações específicas da sua TV Samsung (IP, token, ID, etc.)
+├── requirements.txt # Dependências Python
+└── templates/
+└── index.html # Interface web com os botões de controle
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
 - Python 3
-- Flask (para servidor web)
-- WebSocket e HTTP (para comunicação com a TV Samsung)
+- Flask (servidor web)
+- WebSocket + HTTP
+- HTML/CSS (interface web)
 
 ---
 
-## ▶️ Como Executar
+## 🧰 Pré-requisitos
 
-### 1. Instale as dependências
+- Python 3 instalado
+- A TV Samsung deve estar conectada na **mesma rede** que o computador
+- Projeto clonado/baixado localmente
+- TV compatível com controle via rede (Smart TV)
 
-Com Python 3 instalado, execute:
+---
+
+## ▶️ Passo a Passo
+
+### 1. Instalar as dependências
+
+Abra o terminal na pasta do projeto e execute:
+
+
 pip install -r requirements.txt
+2. Configurar a TV
+Edite o arquivo samsung_config.json com os dados corretos da sua TV:
 
-###2. Execute o servidor
+json
+{
+  "tv_ip": "192.168.0.XXX",
+  "token": "SEU_TOKEN_AQUI",
+  "device_id": "SeuComputador"
+}
+⚠️ O IP da TV pode ser encontrado nas configurações de rede dela.
+
+3. Executar o servidor
+No terminal:
+
 
 python app.py
+O servidor Flask estará acessível em: http://localhost:5000
 
-### 3. Acesse no navegador
-Abra http://localhost:5000 para acessar a interface de controle.
+4. Acessar a Interface
+Abra seu navegador e digite:
 
-⚙️ Configuração da TV
-Certifique-se de que a TV Samsung esteja na mesma rede do computador.
+arduino
+Copiar
+Editar
+http://localhost:5000
+Use os botões para enviar comandos diretamente para a TV.
 
-Edite o arquivo samsung_config.json com o IP da sua TV e os dados de pareamento.
+🔧 Comandos disponíveis
+Power On/Off (dependendo da TV)
 
+Volume +
 
+Volume -
 
+Mudo
 
+Navegação (setas, ok, voltar)
 
+Menu
 
+🧠 Personalização
+Você pode adicionar mais botões e comandos editando:
 
+templates/index.html (interface)
 
+app.py (ações que os botões executam)
+
+Com isso, é possível integrar com Alexa, Google Assistant, Node-RED, etc.
 
